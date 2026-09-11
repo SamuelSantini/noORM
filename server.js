@@ -14,7 +14,9 @@ app.use(express.json());
 app.use(express.static(__dirname));
 
 app.get("/usuarios", async (req, res) => {
-  const resultado = await pool.query("SELECT * FROM usuarios ORDER BY id");
+  const resultado = await pool.query(
+    "SELECT * FROM usuarios ORDER BY id_usuario"
+  );
 
   res.json(resultado.rows);
 });
@@ -35,11 +37,10 @@ app.put("/usuarios/:id", async (req, res) => {
 
   const { nome, idade } = req.body;
 
-  await pool.query("UPDATE usuarios SET nome=$1, idade=$2 WHERE id=$3", [
-    nome,
-    idade,
-    id,
-  ]);
+  await pool.query(
+    "UPDATE usuarios SET nome=$1, idade=$2 WHERE id_usuario=$3",
+    [nome, idade, id]
+  );
 
   res.sendStatus(200);
 });
@@ -47,7 +48,7 @@ app.put("/usuarios/:id", async (req, res) => {
 app.delete("/usuarios/:id", async (req, res) => {
   const id = req.params.id;
 
-  await pool.query("DELETE FROM usuarios WHERE id=$1", [id]);
+  await pool.query("DELETE FROM usuarios WHERE id_usuario=$1", [id]);
 
   res.sendStatus(200);
 });

@@ -14,7 +14,7 @@ async function carregar() {
                 ${usuario.nome}
                 (${usuario.idade})
 
-                <button onclick="remover(${usuario.id})">
+                <button onclick="remover(${usuario.id_usuario})">
                     Excluir
                 </button>
 
